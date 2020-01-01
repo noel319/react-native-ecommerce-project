@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`examples of some things 1`] = `
+<View
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    collapsable={true}
+    pointerEvents="box-none"
+    style={
+      Object {
+        "flex": 1,
+      }
+    }
+  >
+    <View>
+      <TextInput
+        allowFontScaling={true}
+        rejectResponderTermination={true}
+        testID="input"
+        underlineColorAndroid="transparent"
+        value="Ada Lovelace"
+      />
+      <Button
+        title="Print Username"
+      />
+      <Text
+        testID="printed-username"
+      >
+        Ada Lovelace
+      </Text>
+    </View>
+  </View>
+</View>
+`;
