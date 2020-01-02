@@ -7,13 +7,16 @@ export const fontSize = {
 }
 
 export const fontFamily = {
+  RobotoThin: 'Roboto-Thin',
   RobotoRegular: 'Roboto-Regular',
   RobotoLight: 'Roboto-Light',
+  RobotoMedium: 'Roboto-Medium',
   RobotoBold: 'Roboto-Bold',
 }
 
 export const fontWeight = {
   regular: 400,
+  medium: 500,
   semibold: 600,
   bold: 700,
 }
