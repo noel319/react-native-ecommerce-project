@@ -2,6 +2,7 @@ export const fontSize = {
   small: 12,
   regular: 14,
   normal: 16,
+  extra: 18,
   medium: 20,
   big: 26,
 }
@@ -15,8 +16,9 @@ export const fontFamily = {
 }
 
 export const fontWeight = {
+  thin: 100,
+  light: 300,
   regular: 400,
   medium: 500,
-  semibold: 600,
   bold: 700,
 }

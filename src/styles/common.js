@@ -8,5 +8,5 @@ export const Container = styled.SafeAreaView`
   background-color: ${props =>
     (props.bgColor === 'primary' && props.theme.PRIMARY_BACKGROUND_COLOR) ||
     (props.bgColor === 'secondary' && props.theme.SECONDARY_BACKGROUND_COLOR) ||
-    (!props.bgColor && props.theme.white)};
+    (!props.bgColor && props.theme.WHITE)};
 `
