@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { View } from 'react-native'
-import { Formik } from 'formik'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 import TextField from '../../../../components/textField'
 import Button from '../../../../components/button'
+import { NavigationService } from '../../../../navigation'
 import * as S from './styled'
 
 const signInSchema = Yup.object().shape({
@@ -16,41 +17,45 @@ const signInSchema = Yup.object().shape({
 })
 
 const SignInForm = ({ onPress, loading }) => {
+  const { handleSubmit, handleChange, values, errors } = useFormik({
+    initialValues: { email: '', password: '' },
+    validationSchema: signInSchema,
+    onSubmit: onPress,
+  })
   return (
-    <Formik
-      initialValues={{ email: '', password: '' }}
-      validationSchema={signInSchema}
-      onSubmit={onPress}
-      render={({ handleSubmit, handleChange, values, errors }) => (
-        <View>
-          <TextField
-            name="email"
-            onChangeText={handleChange('email')}
-            value={values.email}
-            error={Boolean(errors.email)}
-            textHelper={errors.email}
-            keyboardType="email-address"
-          />
-          <TextField
-            name="password"
-            onChangeText={handleChange('password')}
-            value={values.password}
-            error={Boolean(errors.password)}
-            textHelper={errors.password}
-            secureTextEntry
-          />
-          <S.ViewButton>
-            <Button
-              onPress={handleSubmit}
-              title={loading ? 'Aguarde..' : 'Login'}
-              variant="contained"
-              color="primary"
-            />
-          </S.ViewButton>
-          <Button onPress={() => {}} title="Cadastro" color="secondary" />
-        </View>
-      )}
-    />
+    <View>
+      <TextField
+        name="email"
+        onChangeText={handleChange('email')}
+        value={values.email}
+        error={Boolean(errors.email)}
+        textHelper={errors.email}
+        keyboardType="email-address"
+      />
+      <TextField
+        name="password"
+        onChangeText={handleChange('password')}
+        value={values.password}
+        error={Boolean(errors.password)}
+        textHelper={errors.password}
+        secureTextEntry
+      />
+      <S.ViewButton>
+        <Button
+          onPress={handleSubmit}
+          title={loading ? 'Aguarde..' : 'Login'}
+          variant="contained"
+          color="primary"
+        />
+      </S.ViewButton>
+      <Button
+        onPress={() => {
+          NavigationService.navigate('SignUp')
+        }}
+        title="Cadastro"
+        color="secondary"
+      />
+    </View>
   )
 }
 

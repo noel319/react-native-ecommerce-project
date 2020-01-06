@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import { SafeAreaView } from 'react-native'
 
 import SignInForm from './components/signInForm'
-import HeaderDefault from '../../components/headers/headerDefault'
 import { delay } from '../../utils'
 import * as S from './styled'
 
@@ -18,11 +16,10 @@ const SignIn = () => {
   }
   return (
     <S.SignIn contentInsetAdjustmentBehavior="automatic">
-      <SafeAreaView>
-        <HeaderDefault />
+      <S.SignInSafeView>
         <S.TitleSignIn>Login</S.TitleSignIn>
         <SignInForm onPress={signInSubmit} loading={loading} />
-      </SafeAreaView>
+      </S.SignInSafeView>
     </S.SignIn>
   )
 }
