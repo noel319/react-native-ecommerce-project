@@ -13,8 +13,6 @@ function Example() {
       <Button
         title="Print Username"
         onPress={() => {
-          // let's pretend this is making a server request, so it's async
-          // (you'd want to mock this imaginary request in your unit tests)...
           setTimeout(() => {
             setShow(!show)
           }, Math.floor(Math.random() * 200))
@@ -26,10 +24,11 @@ function Example() {
 }
 
 test('examples of some things', async () => {
+  // Test to confirm if the switch test run
   const { getByTestId, getByText, queryByTestId, baseElement } = render(
     <Example />,
   )
-  const famousWomanInHistory = 'Ada Lovelace'
+  const famousWomanInHistory = 'Jeftar'
 
   const input = getByTestId('input')
   fireEvent.changeText(input, famousWomanInHistory)
