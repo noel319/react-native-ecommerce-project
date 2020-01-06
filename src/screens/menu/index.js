@@ -12,7 +12,7 @@ const Menu = ({ navigation }) => {
     navigate('Auth')
   }
   return (
-    <SafeAreaView style={{ backgroundColor: 'red', flex: 1 }}>
+    <SafeAreaView>
       <ScrollView>
         <View>
           <S.MenuTitleSection>Conta</S.MenuTitleSection>
