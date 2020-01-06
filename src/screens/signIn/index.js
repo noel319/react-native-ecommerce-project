@@ -1,18 +1,28 @@
 import React, { useState } from 'react'
+import { Alert } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
+import authService from '../../services/authService'
 import SignInForm from './components/signInForm'
-import { delay } from '../../utils'
+import { NavigationService } from '../../navigation'
 import * as S from './styled'
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false)
-  const signInSubmit = async (values, { su }) => {
+  const signInSubmit = async values => {
     try {
       setLoading(true)
-      await delay()
-      console.log(values)
+      const { data } = await authService.login(values)
+      await AsyncStorage.setItem('userToken', data.token)
       setLoading(false)
-    } catch (error) {}
+      NavigationService.navigate('App')
+    } catch ({ response }) {
+      setLoading(false)
+      if (response) {
+        const { data } = response
+        Alert.alert('Informação', data.error)
+      }
+    }
   }
   return (
     <S.SignIn contentInsetAdjustmentBehavior="automatic">

@@ -9,11 +9,11 @@ axiosInstace.interceptors.request.use(
   async config => {
     const token = await AsyncStorage.getItem('userToken')
 
-    if (token && !!token.token_type && !!token.access_token) {
-      config.headers.Authorization = `${token.token_type} ${token.access_token}`
+    if (token) {
+      config.headers.Authorization = token
     }
 
-    return config
+    return Promise.resolve(config)
   },
   error => Promise.reject(error),
 )

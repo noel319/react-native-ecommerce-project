@@ -18,7 +18,7 @@ const signInSchema = Yup.object().shape({
 
 const SignInForm = ({ onPress, loading }) => {
   const { handleSubmit, handleChange, values, errors } = useFormik({
-    initialValues: { email: '', password: '' },
+    initialValues: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
     validationSchema: signInSchema,
     onSubmit: onPress,
   })
@@ -31,6 +31,7 @@ const SignInForm = ({ onPress, loading }) => {
         error={Boolean(errors.email)}
         textHelper={errors.email}
         keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextField
         name="password"
@@ -39,6 +40,7 @@ const SignInForm = ({ onPress, loading }) => {
         error={Boolean(errors.password)}
         textHelper={errors.password}
         secureTextEntry
+        autoCapitalize="none"
       />
       <S.ViewButton>
         <Button

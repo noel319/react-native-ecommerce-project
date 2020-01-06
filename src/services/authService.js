@@ -1,7 +1,7 @@
-import { httpClient } from '../utils'
+import httpClient from '../utils/httpClient'
 
 class AuthService {
-  static login(email, password) {
+  static login({ email, password }) {
     const data = {
       email,
       password,
@@ -9,7 +9,7 @@ class AuthService {
     return httpClient.post('/api/login', data)
   }
 
-  static register(email, password) {
+  static register({ email, password }) {
     return httpClient.post('/api/register', {
       email,
       password,
