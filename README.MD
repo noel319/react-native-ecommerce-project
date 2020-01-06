@@ -22,9 +22,11 @@ Run your project if have device or emulator
 
 ### `react-native run-ios`
 
-### `yarn test` or 'npm test'
+### Run Test
 
 Launches the test runner in the interactive watch mode.<br>
+
+### `yarn test` or `npm test`
 
 ## What we use?
 
