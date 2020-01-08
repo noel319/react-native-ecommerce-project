@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 
 import AuthLoading from '../screens/authLoading'
+import Home from '../screens/home'
 import SignIn from '../screens/signIn'
 import SignUp from '../screens/signUp'
 import Products from '../screens/products'
@@ -16,19 +17,23 @@ import { tabBarIcon, tabBarOptions } from './optionsRouter'
 
 const AuthStack = createStackNavigator(
   {
+    Home,
     SignIn,
     SignUp,
   },
   {
-    initialRouteName: 'SignIn',
+    initialRouteName: 'Home',
     headerMode: 'none',
   },
 )
 
 const MainStack = createBottomTabNavigator(
   {
-    Home: {
+    Products: {
       screen: Products,
+      navigationOptions: {
+        tabBarLabel: 'Produtos',
+      },
     },
     Cart: {
       screen: Cart,
@@ -45,7 +50,7 @@ const MainStack = createBottomTabNavigator(
     Menu,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Products',
     defaultNavigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state
       return {

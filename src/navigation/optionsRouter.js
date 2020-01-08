@@ -5,7 +5,7 @@ import { Colors } from '../styles/variables'
 
 export const tabBarIcon = ({ tintColor }, routeName) => {
   switch (routeName) {
-    case 'Home':
+    case 'Products':
       return <IconFontAwesome5Pro name="home" size={19} color={tintColor} />
     case 'Cart':
       return (

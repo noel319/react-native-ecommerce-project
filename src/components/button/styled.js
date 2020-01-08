@@ -13,6 +13,7 @@ export const ButtonText = styled.Text`
 `
 
 export const Button = styled.TouchableOpacity`
+  width: 100%;
   background: ${props =>
     props.variant === 'contained'
       ? props.theme.PRIMARY_BUTTON_COLOR

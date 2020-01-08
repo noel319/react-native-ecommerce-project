@@ -24,7 +24,7 @@ Button.defaultProps = {
 
 Button.propTypes = {
   children: PropTypes.node,
-  variant: PropTypes.string,
+  variant: PropTypes.oneOf(['contained', 'outlined']),
   color: PropTypes.string,
   onPress: PropTypes.func,
   title: PropTypes.string.isRequired,
