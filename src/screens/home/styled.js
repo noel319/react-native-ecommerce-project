@@ -1,6 +1,14 @@
 import styled from 'styled-components/native'
+import { Dimensions } from 'react-native'
 
 import { TextMedium } from '../../styles/typography'
+
+const { width, height } = Dimensions.get('window')
+
+export const Home = styled.ImageBackground`
+  width: ${width};
+  height: ${height};
+`
 
 export const Logo = styled.Image`
   width: 134px;

@@ -1,5 +1,6 @@
 import React from 'react'
-import { SafeAreaView, View, Text, ImageBackground } from 'react-native'
+import PropTypes from 'prop-types'
+import { SafeAreaView, ImageBackground } from 'react-native'
 
 import images from '../../utils/images'
 import Button from '../../components/button'
@@ -12,15 +13,7 @@ const Home = ({ navigation }) => {
         source={images.homeBg}
         style={{ width: '100%', height: '100%' }}
       >
-        <S.Content
-        // style={{
-        //   position: 'absolute',
-        //   top: 0,
-        //   left: 0,
-        //   right: 0,
-        //   bottom: 0,
-        // }}
-        >
+        <S.Content>
           <S.Logo source={images.logo} />
           <S.Description>
             Encontre os melhores produtos com os melhores preços
@@ -39,6 +32,12 @@ const Home = ({ navigation }) => {
       </ImageBackground>
     </SafeAreaView>
   )
+}
+
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }),
 }
 
 export default Home
