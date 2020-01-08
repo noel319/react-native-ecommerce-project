@@ -1,88 +1,68 @@
-import React, { useState, useCallback } from 'react'
-import { FlatList, Dimensions } from 'react-native'
-import uuid from 'uuid/v4'
+import React, { useState, useEffect } from 'react'
 
-import images from '../../utils/images'
-import ProductItem from '../../components/productItem'
+import productService from '../../services/productService'
 import TextField from '../../components/textField'
+import ListProducts from './components/listProducts'
+import OrderProducts from './components/orderProducts'
 import * as S from './styled'
 
-const DATA = [
-  {
-    id: uuid(),
-    title: '(HOT) Termogênico 60 comprimidos',
-    image: images.productImg01,
-    price: 35.99,
-  },
-  {
-    id: uuid(),
-    title: 'Blend Vegan - Growth supplements',
-    image: images.productImg02,
-    price: 35.99,
-  },
-  {
-    id: uuid(),
-    title: '(HOT) Termogênico 60 comprimidos',
-    image: images.productImg01,
-    price: 35.99,
-  },
-  {
-    id: uuid(),
-    title: 'Blend Vegan - Growth supplements',
-    image: images.productImg02,
-    price: 35.99,
-  },
-  {
-    id: uuid(),
-    title: '(HOT) Termogênico 60 comprimidos',
-    image: images.productImg01,
-    price: 35.99,
-  },
-  {
-    id: uuid(),
-    title: 'Blend Vegan - Growth supplements',
-    image: images.productImg02,
-    price: 35.99,
-  },
-]
-
-const columns = 2
-const ITEM_WIDTH = Dimensions.get('window').width
-
 const Products = () => {
-  const [selected, setSelected] = useState(new Map())
-  const onSelect = useCallback(
-    id => {
-      const newSelected = new Map(selected)
-      newSelected.set(id, !selected.get(id))
+  const [products, setProducts] = useState([])
+  const [searchValue, setSearchValue] = useState('')
+  const [loading, setLoading] = useState(false)
 
-      setSelected(newSelected)
-    },
-    [selected],
-  )
+  const handleOrderAlphabet = () => {
+    listProducts('alphabet')
+  }
+  const handleOrderLowestPrice = () => {
+    listProducts('lowestPrice')
+  }
+
+  const handleSearchProducts = async (value = '') => {
+    try {
+      if (value.length <= 3) {
+        return
+      }
+      const { data } = await productService.searchProducts(value)
+      setProducts(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  async function listProducts(type = '') {
+    try {
+      setLoading(true)
+      const { data } = await productService.listProducts(type)
+      setLoading(false)
+      setProducts(data)
+    } catch (error) {
+      setLoading(false)
+    }
+  }
+  useEffect(() => {
+    listProducts()
+  }, [setProducts])
+
   return (
     <S.Container>
-      <FlatList
-        data={DATA}
-        style={S.listProduct}
-        ListHeaderComponent={
-          <S.Header>
-            <S.Title>Lista de produtos</S.Title>
-            <TextField placeholder="Buscar produtos" name="search" />
-          </S.Header>
-        }
-        renderItem={({ item }) => (
-          <ProductItem
-            product={item}
-            itemWidth={(ITEM_WIDTH - 10 * columns) / columns}
-            onPress={onSelect}
-          />
-        )}
-        horizontal={false}
-        numColumns={columns}
-        keyExtractor={item => item.id}
-        extraData={selected}
-      />
+      <S.Header>
+        <S.Title>Lista de produtos</S.Title>
+        <TextField
+          placeholder="Buscar produtos"
+          name="search"
+          onChangeText={text => {
+            handleSearchProducts(text)
+            setSearchValue(text)
+          }}
+          value={searchValue}
+        />
+        <OrderProducts
+          onOrderAlphabet={handleOrderAlphabet}
+          onOrderLowestPrice={handleOrderLowestPrice}
+        />
+      </S.Header>
+      <ListProducts products={products} loading={loading} />
     </S.Container>
   )
 }
