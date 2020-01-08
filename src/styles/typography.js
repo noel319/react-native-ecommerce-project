@@ -24,6 +24,12 @@ export const TextRegular = `
   font-weight: ${fonts.fontWeight.regular};
 `
 
+export const TextMediumBold = `
+  font-size: ${fonts.fontSize.medium};
+  font-family: ${fonts.fontFamily.RobotoBold};
+  font-weight: ${fonts.fontWeight.bold};
+`
+
 export const TextRegularMedium = `
   font-size: ${fonts.fontSize.regular};
   font-family: ${fonts.fontFamily.RobotoMedium};
@@ -31,6 +37,12 @@ export const TextRegularMedium = `
 `
 
 export const TextMedium = `
+  font-size: ${fonts.fontSize.medium};
+  font-family: ${fonts.fontFamily.RobotoMedium};
+  font-weight: ${fonts.fontWeight.medium};
+`
+
+export const TextMediumExtra = `
   font-size: ${fonts.fontSize.extra};
   font-family: ${fonts.fontFamily.RobotoMedium};
   font-weight: ${fonts.fontWeight.medium};

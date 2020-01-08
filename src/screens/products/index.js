@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import productService from '../../services/productService'
+import { delay as debouncePromise } from '../../utils'
 import TextField from '../../components/textField'
 import ListProducts from './components/listProducts'
 import OrderProducts from './components/orderProducts'
@@ -20,12 +21,13 @@ const Products = () => {
 
   const handleSearchProducts = async (value = '') => {
     try {
-      if (value.length <= 3) {
-        return
-      }
+      await debouncePromise(300)
+      setLoading(true)
       const { data } = await productService.searchProducts(value)
       setProducts(data)
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log(error)
     }
   }

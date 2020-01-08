@@ -13,7 +13,7 @@ export const ButtonText = styled.Text`
 `
 
 export const Button = styled.TouchableOpacity`
-  width: 100%;
+  width: ${props => (props.fullscreen ? '100%' : 'auto')};
   background: ${props =>
     props.variant === 'contained'
       ? props.theme.PRIMARY_BUTTON_COLOR

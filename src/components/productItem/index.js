@@ -7,7 +7,7 @@ import * as S from './styled'
 const ProductItem = ({ product, onPress, itemWidth }) => {
   return (
     <S.ProductItemTouch width={itemWidth} onPress={() => onPress(product.id)}>
-      <S.Image source={product.image} />
+      <S.Image source={product.thumbimage} />
       <S.Title>{product.name}</S.Title>
       <S.Price>{`R$ ${VMasker.toMoney(product.price)}`}</S.Price>
     </S.ProductItemTouch>

@@ -18,11 +18,13 @@ const Home = ({ navigation }) => {
           <Button
             title="Login"
             color="secondary"
+            fullscreen
             onPress={() => navigation.navigate('SignIn')}
           />
           <Button
             title="Cadastrar"
             variant="contained"
+            fullscreen
             onPress={() => navigation.navigate('SignUp')}
           />
         </S.Content>

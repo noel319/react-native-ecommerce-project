@@ -34,12 +34,24 @@ storiesOf('Button', module)
       />
     </Container>
   ))
+  .add('contained, primary and fullscreen', () => (
+    <Container>
+      <Button
+        onPress={action('Button Click')}
+        title="Entrar"
+        variant="contained"
+        color="primary"
+        fullscreen
+      />
+    </Container>
+  ))
   .add('outlined and primary', () => (
     <Button
       onPress={action('Button Click')}
       title="Button"
       variant="outlined"
       color="primary"
+      fullscreen
     />
   ))
   .add('secondary', () => (
@@ -48,6 +60,7 @@ storiesOf('Button', module)
         onPress={action('Button Click')}
         title="Button"
         color="secondary"
+        fullscreen
       />
     </Container>
   ))

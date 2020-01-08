@@ -70,6 +70,7 @@ const AppStack = createStackNavigator(
   {
     mode: 'modal',
     headerMode: 'none',
+    initialRouteName: 'ProductDetail',
   },
 )
 

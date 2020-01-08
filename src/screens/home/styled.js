@@ -1,7 +1,7 @@
 import styled from 'styled-components/native'
 import { Dimensions } from 'react-native'
 
-import { TextMedium } from '../../styles/typography'
+import { TextMediumExtra } from '../../styles/typography'
 
 const { width, height } = Dimensions.get('window')
 
@@ -25,5 +25,5 @@ export const Content = styled.View`
 
 export const Description = styled.Text`
   color: ${props => props.theme.WHITE};
-  ${TextMedium};
+  ${TextMediumExtra};
 `

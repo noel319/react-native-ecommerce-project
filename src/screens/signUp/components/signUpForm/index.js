@@ -46,6 +46,7 @@ const SignUpForm = ({ onPress, loading }) => {
           title={loading ? 'Aguarde..' : 'Cadastro'}
           variant="contained"
           color="primary"
+          fullscreen
         />
       </S.ViewButton>
       <Button
@@ -54,6 +55,7 @@ const SignUpForm = ({ onPress, loading }) => {
         }}
         title="Login"
         color="secondary"
+        fullscreen
       />
     </View>
   )
