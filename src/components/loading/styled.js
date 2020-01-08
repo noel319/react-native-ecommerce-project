@@ -3,14 +3,13 @@ import styled from 'styled-components/native'
 import { TextRegular } from '../../styles/typography'
 import { Colors } from '../../styles/variables'
 
-export const Container = styled.View`
-  flex: 1;
-  width: 100%;
-  padding: ${props => props.theme.metrics.spacing(0.5)};
+export const Loading = styled.View`
+  margin: ${props => props.theme.metrics.spacing(2)};
   justify-content: center;
   align-items: center;
-  background-color: ${props => props.theme.SECONDARY_BACKGROUND_COLOR};
+  flex: 1;
 `
+
 export const ActivityIndicator = styled.ActivityIndicator.attrs({
   size: 'large',
   color: Colors.GREEN,

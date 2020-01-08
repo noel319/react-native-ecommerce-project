@@ -1,16 +1,11 @@
 import React from 'react'
 
-import { images } from '../../../../utils'
-
 import * as S from './styled'
 
-const ProductImage = () => {
+const ProductImage = ({ sourceImg }) => {
   return (
     <S.ProductImage>
-      <S.Image
-        source={images.productImg01}
-        style={{ width: 172, height: 212 }}
-      />
+      <S.Image source={sourceImg} />
     </S.ProductImage>
   )
 }

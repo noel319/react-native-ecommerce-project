@@ -26,7 +26,7 @@ const lowestPrice = (data = []) => {
   return [...data]
 }
 
-const fakeRequst = (data, ms = 1500) =>
+const fakeRequst = (data, ms = 500) =>
   new Promise(resolve => setTimeout(() => resolve(data), ms))
 
 class ProductService {
@@ -35,7 +35,7 @@ class ProductService {
   }
 
   static productById(id) {
-    const data = { data: _products.filter(product => product.id === id) }
+    const data = { data: _products.find(product => product.id === id) }
     return fakeRequst(data)
   }
 

@@ -1,3 +1,4 @@
 import HeaderDefault from './headerDefault'
+import HeaderModal from './headerModal'
 
-export { HeaderDefault }
+export { HeaderDefault, HeaderModal }

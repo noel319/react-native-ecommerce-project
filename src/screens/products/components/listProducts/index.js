@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { FlatList, Dimensions, Text } from 'react-native'
+import { FlatList, Dimensions } from 'react-native'
 
 import ProductItem from '../../../../components/productItem'
+import { NavigationService } from '../../../../navigation'
 import * as S from './styled'
 
 const columns = 2
@@ -14,7 +15,7 @@ const ListProducts = ({ products, loading }) => {
     id => {
       const newSelected = new Map(selected)
       newSelected.set(id, !selected.get(id))
-
+      NavigationService.navigate('ProductDetail', { id })
       setSelected(newSelected)
     },
     [selected],
