@@ -54,7 +54,7 @@ const SignInForm = ({ onPress, loading }) => {
         onPress={() => {
           NavigationService.navigate('SignUp')
         }}
-        title="Cadastro"
+        title="Cadastrar"
         color="secondary"
       />
     </View>

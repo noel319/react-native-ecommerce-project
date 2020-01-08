@@ -6,6 +6,18 @@ export const TextSmall = `
   font-weight: ${fonts.fontWeight.thin};
 `
 
+export const TextSmallRegular = `
+  font-size: ${fonts.fontSize.small};
+  font-family: ${fonts.fontFamily.RobotoRegular};
+  font-weight: ${fonts.fontWeight.regular};
+`
+
+export const TextSmallMedium = `
+  font-size: ${fonts.fontSize.medium};
+  font-family: ${fonts.fontFamily.RobotoMedium};
+  font-weight: ${fonts.fontWeight.medium};
+`
+
 export const TextRegular = `
   font-size: ${fonts.fontSize.regular};
   font-family: ${fonts.fontFamily.RobotoRegular};

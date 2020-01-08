@@ -20,8 +20,7 @@ export const TextInput = styled.TextInput`
   margin-bottom: ${props => props.theme.metrics.spacing(0.3)};
   padding-left: ${props => props.theme.metrics.spacing()};
   padding-right: ${props => props.theme.metrics.spacing()};
-  /* ${props => props.theme.shadowGeneration()} */
-  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+  border: 1px solid ${props => props.theme.GREY_DARK};
 `
 export const TextHelper = styled.Text`
   color: ${props =>
