@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { SafeAreaView, ImageBackground } from 'react-native'
+import { SafeAreaView } from 'react-native'
 
 import images from '../../utils/images'
 import Button from '../../components/button'
@@ -9,10 +9,7 @@ import * as S from './styled'
 const Home = ({ navigation }) => {
   return (
     <SafeAreaView>
-      <ImageBackground
-        source={images.homeBg}
-        style={{ width: '100%', height: '100%' }}
-      >
+      <S.Home source={images.homeBg}>
         <S.Content>
           <S.Logo source={images.logo} />
           <S.Description>
@@ -29,7 +26,7 @@ const Home = ({ navigation }) => {
             onPress={() => navigation.navigate('SignUp')}
           />
         </S.Content>
-      </ImageBackground>
+      </S.Home>
     </SafeAreaView>
   )
 }

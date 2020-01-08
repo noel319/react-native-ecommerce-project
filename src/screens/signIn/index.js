@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 
 import authService from '../../services/authService'
 import SignInForm from './components/signInForm'
+import { HeaderDefault } from '../../components/headers'
 import { NavigationService } from '../../navigation'
 import * as S from './styled'
 
@@ -26,6 +27,7 @@ const SignIn = () => {
   }
   return (
     <S.SignIn contentInsetAdjustmentBehavior="automatic">
+      <HeaderDefault mode="light" />
       <S.SignInSafeView>
         <S.TitleSignIn>Login</S.TitleSignIn>
         <SignInForm onPress={signInSubmit} loading={loading} />
