@@ -6,7 +6,7 @@ import * as S from './styled'
 export const { CardHeader, CardBody, CardFooter } = S
 
 const Card = ({ children, variant }) => (
-  <S.Card variant="dark">{children}</S.Card>
+  <S.Card variant={variant}>{children}</S.Card>
 )
 
 Card.defaultProps = {

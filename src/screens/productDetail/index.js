@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { View, ScrollView } from 'react-native'
 import VMasker from 'vanilla-masker'
+import { connect } from 'react-redux'
+import { addToCart } from '../../redux/docks/cart'
 
 import productService from '../../services/productService'
 import Card, { CardBody } from '../../components/card'
@@ -13,7 +15,7 @@ import ProductInfo from './components/productInfo'
 
 import * as S from './styled'
 
-const ProductDetail = ({ navigation }) => {
+const ProductDetail = ({ navigation, add }) => {
   const [product, setProduct] = useState({})
   const [loading, setLoading] = useState(false)
   const id = navigation.getParam('id')
@@ -55,7 +57,7 @@ const ProductDetail = ({ navigation }) => {
                 <Button
                   variant="contained"
                   title="Adicionar"
-                  onPress={() => {}}
+                  onPress={() => add(id)}
                 />
               </S.ProductContentBuy>
             </CardBody>
@@ -66,4 +68,4 @@ const ProductDetail = ({ navigation }) => {
   )
 }
 
-export default ProductDetail
+export default connect(null, { add: addToCart })(ProductDetail)

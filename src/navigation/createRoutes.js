@@ -50,7 +50,7 @@ const MainStack = createBottomTabNavigator(
     Menu,
   },
   {
-    initialRouteName: 'Products',
+    initialRouteName: 'Cart',
     defaultNavigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state
       return {
