@@ -18,13 +18,15 @@ const TrackOrder = () => {
               <CardBody>
                 <S.OrderProduct>
                   <S.OrderImage source={images.productThumbImg01} />
-                  <View>
-                    <Text>(HOT) Termogênico 60 comprimidos</Text>
+                  <S.OrderProductInfo>
+                    <S.OrderTitle>Termogênico 60 comprimidos</S.OrderTitle>
                     <Text>Valor: R$ 35,00</Text>
-                    <Text>Valor: 10</Text>
-                  </View>
+                    <Text>Quantidade: 10</Text>
+                  </S.OrderProductInfo>
                 </S.OrderProduct>
-                <Button title="Acompanhar entrega" variant="contained" />
+                <S.DividerButton>
+                  <Button title="Acompanhar entrega" variant="contained" />
+                </S.DividerButton>
                 <Button title="Ver detalhes" variant="outlined" />
               </CardBody>
             </Card>

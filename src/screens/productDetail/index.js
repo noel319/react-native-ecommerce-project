@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, Alert } from 'react-native'
 import VMasker from 'vanilla-masker'
 import { connect } from 'react-redux'
 import { addToCart } from '../../redux/docks/cart'
@@ -19,6 +19,11 @@ const ProductDetail = ({ navigation, add }) => {
   const [product, setProduct] = useState({})
   const [loading, setLoading] = useState(false)
   const id = navigation.getParam('id')
+
+  const handleAddToCart = () => {
+    add(id)
+    Alert.alert('Informação', 'Produto adicionado.')
+  }
 
   useEffect(() => {
     const productById = async () => {
@@ -57,7 +62,7 @@ const ProductDetail = ({ navigation, add }) => {
                 <Button
                   variant="contained"
                   title="Adicionar"
-                  onPress={() => add(id)}
+                  onPress={handleAddToCart}
                 />
               </S.ProductContentBuy>
             </CardBody>
