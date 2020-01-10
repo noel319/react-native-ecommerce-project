@@ -10,10 +10,11 @@ class AuthService {
   }
 
   static register({ email, password }) {
-    return httpClient.post('/api/register', {
+    const data = {
       email,
       password,
-    })
+    }
+    return httpClient.post('/api/register', data)
   }
 }
 

@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 
 import * as S from './styled'
 
-const Button = ({ onPress, title, variant, color, fullscreen }) => {
+const Button = ({ onPress, title, variant, color, fullscreen, ...rest }) => {
   return (
     <S.Button
       fullscreen={fullscreen}
       variant={variant}
       color={color}
       onPress={onPress}
+      {...rest}
     >
       <S.ButtonText variant={variant} color={color}>
         {title}

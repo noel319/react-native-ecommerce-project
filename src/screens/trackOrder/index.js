@@ -1,5 +1,5 @@
 import React from 'react'
-import { SafeAreaView, View, Text } from 'react-native'
+import { Text } from 'react-native'
 
 import Card, { CardBody } from '../../components/card'
 import Button from '../../components/button'
@@ -9,7 +9,7 @@ import * as S from './styled'
 
 const TrackOrder = () => {
   return (
-    <SafeAreaView>
+    <S.TrackOrder>
       <S.OrderList>
         <S.Title>Lista de produtos</S.Title>
         {[1, 2, 3, 4, 5, 6].map(order => (
@@ -33,7 +33,7 @@ const TrackOrder = () => {
           </S.OrderItem>
         ))}
       </S.OrderList>
-    </SafeAreaView>
+    </S.TrackOrder>
   )
 }
 

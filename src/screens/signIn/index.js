@@ -10,12 +10,13 @@ import * as S from './styled'
 
 const SignIn = () => {
   const [loading, setLoading] = useState(false)
-  const signInSubmit = async values => {
+  const signInSubmit = async (values, { resetForm }) => {
     try {
       setLoading(true)
       const { data } = await authService.login(values)
       await AsyncStorage.setItem('userToken', data.token)
       setLoading(false)
+      resetForm()
       NavigationService.navigate('App')
     } catch ({ response }) {
       setLoading(false)
@@ -25,6 +26,7 @@ const SignIn = () => {
       }
     }
   }
+
   return (
     <S.SignIn contentInsetAdjustmentBehavior="automatic">
       <HeaderDefault mode="light" />

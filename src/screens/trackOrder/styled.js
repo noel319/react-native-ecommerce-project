@@ -1,6 +1,10 @@
-import styled from 'styled-components'
+import styled from 'styled-components/native'
 
 import { Title as TitleStyle, TextRegularMedium } from '../../styles/typography'
+
+export const TrackOrder = styled.SafeAreaView`
+  flex: 1;
+`
 
 export const Title = styled.Text`
   ${TitleStyle};

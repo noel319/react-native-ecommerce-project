@@ -48,6 +48,7 @@ const SignInForm = ({ onPress, loading }) => {
           title={loading ? 'Aguarde..' : 'Login'}
           variant="contained"
           color="primary"
+          disabled={loading}
           fullscreen
         />
       </S.ViewButton>

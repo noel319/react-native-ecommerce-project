@@ -30,6 +30,7 @@ const SignUpForm = ({ onPress, loading }) => {
         value={values.email}
         error={Boolean(errors.email)}
         textHelper={errors.email}
+        autoCapitalize="none"
         keyboardType="email-address"
       />
       <TextField
@@ -38,6 +39,7 @@ const SignUpForm = ({ onPress, loading }) => {
         value={values.password}
         error={Boolean(errors.password)}
         textHelper={errors.password}
+        autoCapitalize="none"
         secureTextEntry
       />
       <S.ViewButton>
@@ -45,6 +47,7 @@ const SignUpForm = ({ onPress, loading }) => {
           onPress={handleSubmit}
           title={loading ? 'Aguarde..' : 'Cadastro'}
           variant="contained"
+          disabled={loading}
           color="primary"
           fullscreen
         />
