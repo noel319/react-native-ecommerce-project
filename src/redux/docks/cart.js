@@ -8,18 +8,34 @@ export const Types = {
 
 const initialState = {
   products: [],
+  total: 0,
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case Types.ADD:
       const product = products.find(item => item.id === action.payload.id)
-      return { ...state, products: [...state.products, product] }
+      const hasProduct = state.products.some(
+        item => item.id === action.payload.id,
+      )
+      if (hasProduct) {
+        product.quantity += 1
+        const total = state.total + product.price
+        return { ...state, products: [...state.products], total }
+      } else {
+        product.quantity = 1
+        const total = state.total + product.price
+        return { ...state, products: [...state.products, product], total }
+      }
     case Types.REMOVE:
-      const productsRemove = products.filter(
+      const removeItem = state.products.find(
+        item => product.id === action.payload.id,
+      )
+      const productsClear = products.filter(
         item => item.id !== action.payload.id,
       )
-      return { ...state, products: productsRemove }
+      const total = state.total - removeItem.price * removeItem.quantity
+      return { ...state, products: productsClear, total }
     default:
       return state
   }
