@@ -4,6 +4,7 @@ export const Types = {
   REQUEST: 'cart/REQUEST',
   ADD: 'cart/ADD',
   REMOVE: 'cart/REMOVE',
+  EMPTY: 'cart/EMPTY',
 }
 
 const initialState = {
@@ -20,11 +21,11 @@ export default (state = initialState, action) => {
       )
       if (hasProduct) {
         product.quantity += 1
-        const total = state.total + product.price
+        const total = Number(state.total) + Number(product.price)
         return { ...state, products: [...state.products], total }
       } else {
         product.quantity = 1
-        const total = state.total + product.price
+        const total = Number(state.total) + Number(product.price)
         return { ...state, products: [...state.products, product], total }
       }
     case Types.REMOVE:
@@ -34,8 +35,11 @@ export default (state = initialState, action) => {
       const productsClear = _products.filter(
         item => item.id !== action.payload.id,
       )
-      const total = state.total - removeItem.price * removeItem.quantity
+      const total =
+        Number(state.total) - Number(removeItem.price) * removeItem.quantity
       return { ...state, products: productsClear, total }
+    case Types.EMPTY:
+      return { ...state, products: [], total: 0 }
     default:
       return state
   }
@@ -45,6 +49,12 @@ export const addToCart = (id = 1) => {
   return {
     type: Types.ADD,
     payload: { id },
+  }
+}
+
+export const clearCart = (id = 1) => {
+  return {
+    type: Types.EMPTY,
   }
 }
 

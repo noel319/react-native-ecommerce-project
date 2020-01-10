@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
 import authService from '../../services/authService'
 import { HeaderDefault } from '../../components/headers'
-import { NavigationService } from '../../navigation'
 import SignUpForm from './components/signUpForm'
 import * as S from './styled'
 
-const SignUp = () => {
+const SignUp = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const signUpSubmit = async (values, { resetForm }) => {
     try {
@@ -18,7 +18,7 @@ const SignUp = () => {
       setLoading(false)
       Alert.alert('Sucesso', 'Cadastro efetuado com sucesso.')
       resetForm()
-      NavigationService.navigate('App')
+      navigation.navigate('App')
     } catch ({ response }) {
       setLoading(false)
       if (response) {
@@ -37,6 +37,12 @@ const SignUp = () => {
       </S.SignInSafeView>
     </S.SignUp>
   )
+}
+
+SignUp.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
 }
 
 export default SignUp

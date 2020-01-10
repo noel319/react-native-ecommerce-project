@@ -1,17 +1,6 @@
 import styled from 'styled-components/native'
 
-import { Title as TitleStyle, TextRegularMedium } from '../../styles/typography'
-
-export const TrackOrder = styled.SafeAreaView`
-  flex: 1;
-`
-
-export const Title = styled.Text`
-  ${TitleStyle};
-  padding-top: ${props => props.theme.metrics.spacing()};
-  padding-bottom: ${props => props.theme.metrics.spacing(2)};
-  text-align: center;
-`
+import { TextRegularMedium } from '../../../../styles/typography'
 
 export const OrderItem = styled.View`
   margin-bottom: ${props => props.theme.metrics.spacing(2)};
@@ -41,3 +30,9 @@ export const OrderImage = styled.Image`
 export const DividerButton = styled.View`
   margin-bottom: ${props => props.theme.metrics.spacing(2)};
 `
+
+export const OrderList = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    padding: 10,
+  },
+})``

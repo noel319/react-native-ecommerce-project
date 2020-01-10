@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
 
 import authService from '../../services/authService'
 import SignInForm from './components/signInForm'
 import { HeaderDefault } from '../../components/headers'
-import { NavigationService } from '../../navigation'
 import * as S from './styled'
 
-const SignIn = () => {
+const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState(false)
   const signInSubmit = async (values, { resetForm }) => {
     try {
@@ -17,7 +17,7 @@ const SignIn = () => {
       await AsyncStorage.setItem('userToken', data.token)
       setLoading(false)
       resetForm()
-      NavigationService.navigate('App')
+      navigation.navigate('App')
     } catch ({ response }) {
       setLoading(false)
       if (response) {
@@ -38,4 +38,9 @@ const SignIn = () => {
   )
 }
 
+SignIn.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func,
+  }).isRequired,
+}
 export default SignIn

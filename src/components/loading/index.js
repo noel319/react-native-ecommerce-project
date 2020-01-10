@@ -13,7 +13,7 @@ const Loading = ({ title }) => {
 }
 
 Loading.defaultProps = {
-  title: '',
+  title: 'Aguarde...',
 }
 
 Loading.propTypes = {

@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import uuid from 'uuid/v4'
 
 import { products as _products } from '../fake-data'
+import { IDGenerator } from '../utils'
 
 const alphabetNameSort = (data = []) => {
   if (!!data.length && !!data.name) {
@@ -64,13 +64,41 @@ class ProductService {
   }
 
   static async listOrder() {
-    return await AsyncStorage.getItem('orders')
+    const orders = await AsyncStorage.getItem('userOrders')
+    console.log('listOrder: ', orders)
+    let data = []
+    if (orders) {
+      data = JSON.parse(orders)
+    }
+
+    return {
+      data,
+    }
   }
 
-  static async createOrder(order) {
-    const orders = (await AsyncStorage.getItem('orders')) || []
-    const ordersUpdate = [...orders, ...order]
-    return await AsyncStorage.setItem('orders', ordersUpdate)
+  static async createOrder(products, total) {
+    try {
+      const orderNumber = new IDGenerator().generate()
+      const order = {
+        orderNumber,
+        products,
+        total,
+        created_at: Date.now(),
+      }
+      const orders = await AsyncStorage.getItem('userOrders')
+      let orderParser = []
+      if (orders) {
+        orderParser = JSON.parse(orders)
+      }
+      const ordersUpdate = [...orderParser, order]
+      await AsyncStorage.setItem('userOrders', JSON.stringify(ordersUpdate))
+
+      return { data: { message: 'Pedido realizado com sucesso' } }
+    } catch (error) {
+      throw {
+        data: { message: 'Desculpe houve um erro ao processar o pagamento' },
+      }
+    }
   }
 }
 
