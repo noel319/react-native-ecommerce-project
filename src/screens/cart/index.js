@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import VMasker from 'vanilla-masker'
@@ -27,9 +27,9 @@ const Cart = ({ products, total }) => {
             </S.ProductItem>
           ))
         ) : (
-          <View>
-            <Text>Nenhum item</Text>
-          </View>
+          <S.CartEmpty>
+            <S.CartEmptyText>Nenhum item no carrinho :(</S.CartEmptyText>
+          </S.CartEmpty>
         )}
       </S.ProductList>
       <Card variant="dark">
@@ -37,7 +37,7 @@ const Cart = ({ products, total }) => {
           <S.ProductContentBuy>
             <View>
               <S.ProductTagText>Total</S.ProductTagText>
-              <S.ProductPrice>{total}</S.ProductPrice>
+              <S.ProductPrice>{`R$ ${VMasker.toMoney(total)}`}</S.ProductPrice>
             </View>
             <Button variant="contained" title="Finalizar" onPress={() => {}} />
           </S.ProductContentBuy>

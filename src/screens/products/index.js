@@ -1,50 +1,45 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
+import { connect } from 'react-redux'
 
-import productService from '../../services/productService'
-import { delay as debouncePromise } from '../../utils'
+import { getProducts as getProductsAction } from '../../redux/docks/products'
 import TextField from '../../components/textField'
 import ListProducts from './components/listProducts'
 import OrderProducts from './components/orderProducts'
 import * as S from './styled'
 
-const Products = () => {
-  const [products, setProducts] = useState([])
+const Products = ({ getProducts, products }) => {
   const [searchValue, setSearchValue] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [typeSort, setTypeSort] = useState('')
 
-  const handleOrderAlphabet = () => {
-    listProducts('alphabet')
-  }
-  const handleOrderLowestPrice = () => {
-    listProducts('lowestPrice')
-  }
+  const listProducts = useCallback(
+    (type = '', search = '') => {
+      getProducts(type, search)
+    },
+    [getProducts],
+  )
 
-  const handleSearchProducts = async (value = '') => {
-    try {
-      await debouncePromise(300)
-      setLoading(true)
-      const { data } = await productService.searchProducts(value)
-      setProducts(data)
-      setLoading(false)
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-    }
+  const handleOrderAlphabet = type => {
+    setTypeSort(type)
+    listProducts(type)
   }
 
-  async function listProducts(type = '') {
-    try {
-      setLoading(true)
-      const { data } = await productService.listProducts(type)
-      setLoading(false)
-      setProducts(data)
-    } catch (error) {
-      setLoading(false)
-    }
+  const handleOrderLowestPrice = type => {
+    setTypeSort(type)
+    listProducts(type)
   }
+
+  const handleOrderClear = type => {
+    setTypeSort(type)
+    listProducts(type)
+  }
+
+  const handleSearchProducts = (value = '') => {
+    listProducts(typeSort, value)
+  }
+
   useEffect(() => {
     listProducts()
-  }, [setProducts])
+  }, [listProducts])
 
   return (
     <S.Container>
@@ -60,13 +55,22 @@ const Products = () => {
           value={searchValue}
         />
         <OrderProducts
-          onOrderAlphabet={handleOrderAlphabet}
-          onOrderLowestPrice={handleOrderLowestPrice}
+          onAlphabet={handleOrderAlphabet}
+          onLowestPrice={handleOrderLowestPrice}
+          onClear={handleOrderClear}
         />
       </S.Header>
-      <ListProducts products={products} loading={loading} />
+      <ListProducts products={products.data} loading={products.loading} />
     </S.Container>
   )
 }
 
-export default Products
+const mapStateToProps = state => {
+  return {
+    products: state.products,
+  }
+}
+
+export default connect(mapStateToProps, { getProducts: getProductsAction })(
+  Products,
+)

@@ -73,4 +73,4 @@ const ProductDetail = ({ navigation, add }) => {
   )
 }
 
-export default connect(null, { add: addToCart })(ProductDetail)
+export default connect({ add: addToCart })(ProductDetail)

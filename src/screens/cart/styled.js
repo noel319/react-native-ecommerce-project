@@ -8,6 +8,7 @@ import {
 
 export const Cart = styled.SafeAreaView`
   flex: 1;
+  background-color: ${props => props.theme.WHITE};
 `
 
 export const Title = styled.Text`
@@ -15,6 +16,15 @@ export const Title = styled.Text`
   padding-top: ${props => props.theme.metrics.spacing()};
   padding-bottom: ${props => props.theme.metrics.spacing(2)};
   text-align: center;
+`
+
+export const CartEmpty = styled.View`
+  padding: ${props => props.theme.metrics.spacing(2)};
+`
+
+export const CartEmptyText = styled.Text`
+  ${TextRegularMedium};
+  align-self: center;
 `
 
 export const ProductContentBuy = styled.SafeAreaView`

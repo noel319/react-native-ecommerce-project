@@ -1,4 +1,4 @@
-import { products } from '../../fake-data/'
+import { products as _products } from '../../fake-data/'
 
 export const Types = {
   REQUEST: 'cart/REQUEST',
@@ -14,7 +14,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case Types.ADD:
-      const product = products.find(item => item.id === action.payload.id)
+      const product = _products.find(item => item.id === action.payload.id)
       const hasProduct = state.products.some(
         item => item.id === action.payload.id,
       )
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
       const removeItem = state.products.find(
         item => product.id === action.payload.id,
       )
-      const productsClear = products.filter(
+      const productsClear = _products.filter(
         item => item.id !== action.payload.id,
       )
       const total = state.total - removeItem.price * removeItem.quantity

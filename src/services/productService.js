@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-community/async-storage'
+import uuid from 'uuid/v4'
+
 import { products as _products } from '../fake-data'
 
 const alphabetNameSort = (data = []) => {
@@ -26,38 +29,48 @@ const lowestPrice = (data = []) => {
   return [...data]
 }
 
-const fakeRequst = (data, ms = 500) =>
+const productsSort = type => {
+  switch (type) {
+    case 'alphabet':
+      return alphabetNameSort(_products)
+    case 'lowestPrice':
+      return lowestPrice(_products)
+    default:
+      return _products
+  }
+}
+
+const searchProducts = (search = '', data) => {
+  const response = search.length
+    ? data.filter(product => product.name.includes(search))
+    : data
+
+  return response
+}
+
+const fakeRequest = (data, ms = 500) =>
   new Promise(resolve => setTimeout(() => resolve(data), ms))
 
 class ProductService {
-  static listProducts(type) {
-    return this.productsSort(type)
+  static async listProducts({ type, search }) {
+    const dataSort = productsSort(type)
+    const data = searchProducts(search, dataSort)
+    return await fakeRequest({ data })
   }
 
   static productById(id) {
     const data = { data: _products.find(product => product.id === id) }
-    return fakeRequst(data)
+    return fakeRequest(data)
   }
 
-  static searchProducts(search) {
-    const data = {
-      data: search.length
-        ? _products.filter(product => product.name.includes(search))
-        : _products,
-    }
-
-    return fakeRequst(data)
+  static async listOrder() {
+    return await AsyncStorage.getItem('orders')
   }
 
-  static productsSort(type) {
-    switch (type) {
-      case 'alphabet':
-        return fakeRequst({ data: alphabetNameSort(_products) })
-      case 'lowestPrice':
-        return fakeRequst({ data: lowestPrice(_products) })
-      default:
-        return fakeRequst({ data: _products })
-    }
+  static async createOrder(order) {
+    const orders = (await AsyncStorage.getItem('orders')) || []
+    const ordersUpdate = [...orders, ...order]
+    return await AsyncStorage.setItem('orders', ordersUpdate)
   }
 }
 

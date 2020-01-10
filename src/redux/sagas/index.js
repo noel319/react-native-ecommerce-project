@@ -1,7 +1,7 @@
-import { all } from 'redux-saga/effects'
+import { all, fork } from 'redux-saga/effects'
 
-import watchCartAdd from './cart'
+import { watchGetProducts } from './products'
 
 export default function* rootSaga() {
-  yield all([watchCartAdd()])
+  yield all([fork(watchGetProducts)])
 }
