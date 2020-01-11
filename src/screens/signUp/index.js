@@ -29,13 +29,15 @@ const SignUp = ({ navigation }) => {
   }
 
   return (
-    <S.SignUp contentInsetAdjustmentBehavior="automatic">
-      <HeaderDefault mode="light" />
-      <S.SignInSafeView>
-        <S.TitleSignUp>Cadastro</S.TitleSignUp>
-        <SignUpForm onPress={signUpSubmit} loading={loading} />
-      </S.SignInSafeView>
-    </S.SignUp>
+    <S.SignUpKeyboardView>
+      <S.SignUp contentInsetAdjustmentBehavior="automatic">
+        <HeaderDefault mode="light" />
+        <S.SignInSafeView>
+          <S.TitleSignUp>Cadastro</S.TitleSignUp>
+          <SignUpForm onPress={signUpSubmit} loading={loading} />
+        </S.SignInSafeView>
+      </S.SignUp>
+    </S.SignUpKeyboardView>
   )
 }
 

@@ -31,6 +31,7 @@ const SignUpForm = ({ onPress, loading }) => {
         error={Boolean(errors.email)}
         textHelper={errors.email}
         autoCapitalize="none"
+        placeholder="Seu e-mail"
         keyboardType="email-address"
       />
       <TextField
@@ -40,6 +41,7 @@ const SignUpForm = ({ onPress, loading }) => {
         error={Boolean(errors.password)}
         textHelper={errors.password}
         autoCapitalize="none"
+        placeholder="digite uma senha"
         secureTextEntry
       />
       <S.ViewButton>

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { Platform, KeyboardAvoidingView } from 'react-native'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
@@ -18,16 +18,17 @@ const signInSchema = Yup.object().shape({
 
 const SignInForm = ({ onPress, loading }) => {
   const { handleSubmit, handleChange, values, errors } = useFormik({
-    initialValues: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
+    initialValues: { email: '', password: '' },
     validationSchema: signInSchema,
     onSubmit: onPress,
   })
   return (
-    <View>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null}>
       <TextField
         name="email"
         onChangeText={handleChange('email')}
         value={values.email}
+        placeholder="Seu e-mail"
         error={Boolean(errors.email)}
         textHelper={errors.email}
         keyboardType="email-address"
@@ -39,6 +40,7 @@ const SignInForm = ({ onPress, loading }) => {
         value={values.password}
         error={Boolean(errors.password)}
         textHelper={errors.password}
+        placeholder="Sua senha"
         secureTextEntry
         autoCapitalize="none"
       />
@@ -60,7 +62,7 @@ const SignInForm = ({ onPress, loading }) => {
         color="secondary"
         fullscreen
       />
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

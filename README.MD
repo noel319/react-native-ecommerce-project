@@ -28,6 +28,13 @@ Launches the test runner in the interactive watch mode.<br>
 
 ### `yarn test` or `npm test`
 
+Run product app in your smartphone.<br>
+## Generate Build
+### `yarn run build` or `npm run build`
+
+## Install app release
+### `yarn run prod` or `npm run prod`
+
 ## What we use?
 
 #### Environment

@@ -10,12 +10,12 @@ import Card, { CardBody } from '../../components/card'
 import Button from '../../components/button'
 import * as S from './styled'
 
-const Cart = ({ products, total, navigation }) => {
+const Cart = ({ products, total, navigation, cartEmpty }) => {
   const handleFinshCart = async () => {
     try {
       const { data } = await productService.createOrder(products, total)
       console.log('RESPONSE: ', data)
-      clearCart()
+      cartEmpty()
       navigation.navigate('TrackOrder')
       Alert.alert('Sucesso', 'Pedido finalziado com sucesso')
     } catch (error) {
@@ -84,4 +84,4 @@ const mapStateTopProps = state => {
   }
 }
 
-export default connect(mapStateTopProps, { clearCart })(Cart)
+export default connect(mapStateTopProps, { cartEmpty: clearCart })(Cart)
