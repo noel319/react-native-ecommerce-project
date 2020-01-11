@@ -134,6 +134,16 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+      release {
+        if (project.hasProperty('PROTAINFULL_RELEASE_STORE_FILE')) {
+          storeFile file(PROTAINFULL_RELEASE_STORE_FILE)
+          storePassword PROTAINFULL_RELEASE_STORE_PASSWORD
+          keyAlias PROTAINFULL_RELEASE_KEY_ALIAS
+          keyPassword PROTAINFULL_RELEASE_KEY_PASSWORD
+        }
+      }
+    }
     splits {
         abi {
             reset()
@@ -160,6 +170,8 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+
+            signingConfig signingConfigs.release
         }
     }
     // applicationVariants are e.g. debug, release
