@@ -6,11 +6,17 @@ import AsyncStorage from '@react-native-community/async-storage'
 import * as S from './styled'
 
 const Menu = ({ navigation }) => {
+  const { navigate } = navigation
+
   const handleLogout = async () => {
     await AsyncStorage.removeItem('userToken')
-    const { navigate } = navigation
     navigate('Auth')
   }
+
+  const handleStory = async () => {
+    navigate('StoryComponents')
+  }
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -18,6 +24,12 @@ const Menu = ({ navigation }) => {
           <S.MenuTitleSection>Conta</S.MenuTitleSection>
           <S.MenuItemTouch onPress={handleLogout}>
             <S.MenuItemText>Sair</S.MenuItemText>
+          </S.MenuItemTouch>
+        </View>
+        <View>
+          <S.MenuTitleSection>For Developer</S.MenuTitleSection>
+          <S.MenuItemTouch onPress={handleStory}>
+            <S.MenuItemText>Storybook Components</S.MenuItemText>
           </S.MenuItemTouch>
         </View>
       </ScrollView>

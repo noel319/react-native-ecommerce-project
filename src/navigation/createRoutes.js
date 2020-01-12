@@ -12,6 +12,7 @@ import TrackOrder from '../screens/trackOrder'
 import Cart from '../screens/cart'
 import Checkout from '../screens/checkout'
 import Menu from '../screens/menu'
+import StoryComponents from '../screens/storyComponents'
 
 import { tabBarIcon, tabBarOptions } from './optionsRouter'
 
@@ -66,6 +67,7 @@ const AppStack = createStackNavigator(
     Main: MainStack,
     ProductDetail: ProductDetail,
     Checkout: Checkout,
+    StoryComponents: StoryComponents,
   },
   {
     mode: 'modal',
