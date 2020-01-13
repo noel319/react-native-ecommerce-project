@@ -28,22 +28,23 @@ export const GroupButtons = styled.View`
 
 export const IconPlus = styled(IconMaterial).attrs({
   name: 'plus',
-  size: 15,
+  size: 18,
 })`
-  color: ${props => props.theme.GREY_DARK};
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `
 
 export const IconMinus = styled(IconMaterial).attrs({
   name: 'minus',
-  size: 15,
+  size: 18,
 })`
-  color: ${props => props.theme.GREY_DARK};
+  color: ${props => props.theme.PRIMARY_TEXT_COLOR};
 `
 
 export const IconButton = styled.TouchableOpacity`
-  width: 20px;
-  height: 20px;
-  background-color: ${props => props.theme.GREY};
+  width: 32px;
+  height: 32px;
+  background-color: ${props =>
+    props.disabled ? props.theme.TERTIARY_BACKGROUND_COLOR : props.theme.GREEN};
   border-radius: 50;
   justify-content: center;
   align-items: center;

@@ -22,10 +22,9 @@ const Cart = ({
   const handleFinshCart = async () => {
     try {
       const { data } = await productService.createOrder(products, total)
-      console.log('RESPONSE: ', data)
       cartEmpty()
       navigation.navigate('TrackOrder')
-      Alert.alert('Sucesso', 'Pedido finalziado com sucesso')
+      Alert.alert('Sucesso', data.message)
     } catch (error) {
       const { message } = error.data
       Alert.alert('Error', message || 'Houver um error no seu pagamento')
@@ -45,7 +44,10 @@ const Cart = ({
                   product.price,
                 )}`}</S.ProductPrice>
                 <S.GroupButtons>
-                  <S.IconButton onPress={() => addProduct(product.id)}>
+                  <S.IconButton
+                    disabled={product.inventory <= 0}
+                    onPress={() => addProduct(product.id)}
+                  >
                     <S.IconPlus />
                   </S.IconButton>
                   <S.ProductQuantity>{product.quantity}</S.ProductQuantity>
