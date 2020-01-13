@@ -14,10 +14,14 @@ export const ButtonText = styled.Text`
 
 export const Button = styled.TouchableOpacity`
   width: ${props => (props.fullscreen ? '100%' : 'auto')};
-  background: ${props =>
-    props.variant === 'contained'
+  background: ${props => {
+    if (props.disabled) {
+      return props.theme.INACTIVE
+    }
+    return props.variant === 'contained'
       ? props.theme.PRIMARY_BUTTON_COLOR
-      : 'transparent'};
+      : 'transparent'
+  }};
   border: ${props =>
     props.variant === 'outlined'
       ? `2px solid ${props.theme.PRIMARY_BUTTON_COLOR}`

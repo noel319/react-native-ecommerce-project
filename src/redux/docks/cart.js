@@ -16,7 +16,6 @@ const initialState = {
 
 function quantityById(state = initialState.quantityById, action) {
   const { productId } = action
-  console.log('CART REMOVE: ', action)
   switch (action.type) {
     case Types.CHECKOUT_SUCCESS:
       return initialState.quantityById

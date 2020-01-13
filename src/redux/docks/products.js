@@ -2,6 +2,8 @@ import { combineReducers } from 'redux'
 
 export const Types = {
   GET_ALL: 'products/GET_ALL',
+  GET_PRODUCT_ID: 'products/GET_PRODUCT_ID',
+  CLEAR_PRODUCT_ID: 'products/CLEAR_PRODUCT_ID',
   RECEIVE: 'products/RECEIVE',
   ADD: 'products/ADD',
   REMOVE: 'products/REMOVE',
@@ -50,6 +52,7 @@ function byId(state = {}, action) {
       return state
   }
 }
+
 function visibleIds(state = [], action) {
   switch (action.type) {
     case Types.RECEIVE:
@@ -59,12 +62,28 @@ function visibleIds(state = [], action) {
   }
 }
 
+function productVisibleId(state = { productId: '' }, action) {
+  const { productId } = action
+  switch (action.type) {
+    case Types.GET_PRODUCT_ID:
+      return { ...state, productId }
+    case Types.CLEAR_PRODUCT_ID:
+      return { ...state, productId: '' }
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   byId,
   visibleIds,
+  productVisibleId,
 })
 
-export const getProduct = (state, id) => state.byId[id]
+export const getProduct = (state, id) => {
+  return state.byId[id]
+}
+
 export const getVisibleProducts = state =>
   state.visibleIds.map(id => getProduct(state, id))
 
@@ -75,13 +94,24 @@ export const receiveProducts = productsData => {
   }
 }
 
+export const setProductId = productId => {
+  return {
+    type: Types.GET_PRODUCT_ID,
+    productId,
+  }
+}
+export const clearProductId = productId => {
+  return {
+    type: Types.CLEAR_PRODUCT_ID,
+  }
+}
+
 export const getProducts = (type = '', search = '') => ({
   type: Types.GET_ALL,
   payload: { type, search },
 })
 
 export const addToCart = productId => {
-  console.log('addToCart: ', productId)
   return {
     type: Types.ADD,
     productId,
@@ -89,7 +119,6 @@ export const addToCart = productId => {
 }
 
 export const removeFromCart = productId => {
-  console.log('removeFromCart: ', productId)
   return {
     type: Types.REMOVE,
     productId,

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { View, ScrollView, Alert } from 'react-native'
 import PropTypes from 'prop-types'
 import VMasker from 'vanilla-masker'
 import { connect } from 'react-redux'
-import { addToCart } from '../../redux/docks/products'
+import { addToCart, getProduct } from '../../redux/docks/products'
 
-import productService from '../../services/productService'
 import Card, { CardBody } from '../../components/card'
 import Loading from '../../components/loading'
 import Button from '../../components/button'
@@ -16,9 +15,7 @@ import ProductInfo from './components/productInfo'
 
 import * as S from './styled'
 
-const ProductDetail = ({ navigation, addProduct }) => {
-  const [product, setProduct] = useState({})
-  const [loading, setLoading] = useState(false)
+const ProductDetail = ({ navigation, addProduct, product }) => {
   const id = navigation.getParam('id')
 
   const handleAddToCart = () => {
@@ -26,24 +23,10 @@ const ProductDetail = ({ navigation, addProduct }) => {
     Alert.alert('Informação', 'Produto adicionado.')
   }
 
-  useEffect(() => {
-    const productById = async () => {
-      try {
-        setLoading(true)
-        const { data } = await productService.productById(id)
-        setProduct(data)
-        setLoading(false)
-        setLoading(false)
-      } catch (error) {}
-    }
-
-    productById()
-  }, [id])
-
   return (
     <S.ProductDetail>
       <HeaderModal />
-      {loading || !product.name ? (
+      {!product.name ? (
         <Loading title="Aguarde.." />
       ) : (
         <>
@@ -62,7 +45,8 @@ const ProductDetail = ({ navigation, addProduct }) => {
                 </View>
                 <Button
                   variant="contained"
-                  title="Adicionar"
+                  disabled={product.inventory <= 0}
+                  title={product.inventory > 0 ? 'Adicionar' : 'Indisponível'}
                   onPress={handleAddToCart}
                 />
               </S.ProductContentBuy>
@@ -74,4 +58,24 @@ const ProductDetail = ({ navigation, addProduct }) => {
   )
 }
 
-export default connect(null, { addProduct: addToCart })(ProductDetail)
+ProductDetail.propTypes = {
+  addProduct: PropTypes.func.isRequired,
+  product: PropTypes.shape({
+    name: PropTypes.string,
+    price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    image: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }).isRequired,
+}
+
+const mapStateToProps = state => {
+  return {
+    product: getProduct(
+      state.products,
+      state.products.productVisibleId.productId,
+    ),
+  }
+}
+
+export default connect(mapStateToProps, { addProduct: addToCart })(
+  ProductDetail,
+)

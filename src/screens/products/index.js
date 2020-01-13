@@ -40,10 +40,6 @@ const Products = ({ getProducts, products }) => {
     listProducts(typeSort, value)
   }
 
-  // useEffect(() => {
-  //   listProducts()
-  // }, [listProducts])
-
   return (
     <S.Container>
       <S.Header>
@@ -74,6 +70,6 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getProducts: getProductsAction })(
-  Products,
-)
+export default connect(mapStateToProps, {
+  getProducts: getProductsAction,
+})(Products)

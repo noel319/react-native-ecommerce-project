@@ -1,7 +1,9 @@
 import React, { useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { FlatList, Dimensions } from 'react-native'
+import { connect } from 'react-redux'
 
+import { setProductId } from '../../../../redux/docks/products'
 import ProductItem from '../../../../components/productItem'
 import { NavigationService } from '../../../../navigation'
 import * as S from './styled'
@@ -9,16 +11,18 @@ import * as S from './styled'
 const columns = 2
 const ITEM_WIDTH = Dimensions.get('window').width
 
-const ListProducts = ({ products, loading }) => {
+const ListProducts = ({ products, setProduct, loading }) => {
   const [selected, setSelected] = useState(new Map())
+
   const onSelect = useCallback(
     id => {
       const newSelected = new Map(selected)
       newSelected.set(id, !selected.get(id))
+      setProduct(id)
       NavigationService.navigate('ProductDetail', { id })
       setSelected(newSelected)
     },
-    [selected],
+    [selected, setProduct],
   )
 
   const productLoding = () => (
@@ -57,6 +61,7 @@ ListProducts.defaultProps = {
 ListProducts.propTypes = {
   products: PropTypes.arrayOf(PropTypes.object),
   loading: PropTypes.bool,
+  setProduct: PropTypes.func.isRequired,
 }
 
-export default ListProducts
+export default connect(null, { setProduct: setProductId })(ListProducts)
