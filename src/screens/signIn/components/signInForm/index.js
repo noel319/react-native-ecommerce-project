@@ -18,7 +18,7 @@ const signInSchema = Yup.object().shape({
 
 const SignInForm = ({ onPress, loading }) => {
   const { handleSubmit, handleChange, values, errors } = useFormik({
-    initialValues: { email: 'eve.holt@reqres.in', password: 'cityslicka' },
+    initialValues: { email: '', password: '' },
     validationSchema: signInSchema,
     onSubmit: onPress,
   })
