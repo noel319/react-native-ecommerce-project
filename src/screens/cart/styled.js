@@ -1,4 +1,6 @@
 import styled from 'styled-components/native'
+import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
+
 import {
   TextSmallRegular,
   TextMediumBold,
@@ -16,6 +18,35 @@ export const Title = styled.Text`
   padding-top: ${props => props.theme.metrics.spacing()};
   padding-bottom: ${props => props.theme.metrics.spacing(2)};
   text-align: center;
+`
+
+export const GroupButtons = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin-top: ${props => props.theme.metrics.spacing(1.5)};
+`
+
+export const IconPlus = styled(IconMaterial).attrs({
+  name: 'plus',
+  size: 15,
+})`
+  color: ${props => props.theme.GREY_DARK};
+`
+
+export const IconMinus = styled(IconMaterial).attrs({
+  name: 'minus',
+  size: 15,
+})`
+  color: ${props => props.theme.GREY_DARK};
+`
+
+export const IconButton = styled.TouchableOpacity`
+  width: 20px;
+  height: 20px;
+  background-color: ${props => props.theme.GREY};
+  border-radius: 50;
+  justify-content: center;
+  align-items: center;
 `
 
 export const CartEmpty = styled.View`
@@ -72,7 +103,8 @@ export const ProductTagText = styled.Text`
 
 export const ProductQuantity = styled.Text`
   ${TextSmallRegular};
-  margin-top: ${props => props.theme.metrics.spacing(0.5)};
+  margin-left: ${props => props.theme.metrics.spacing(1)};
+  margin-right: ${props => props.theme.metrics.spacing(1)};
 `
 
 export const ProductPrice = styled.Text`

@@ -4,13 +4,21 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import VMasker from 'vanilla-masker'
 
-import { clearCart } from '../../redux/docks/cart'
+import { clearCart, getCartProducts, getTotal } from '../../redux/docks/cart'
+import { addToCart, removeFromCart } from '../../redux/docks/products'
 import productService from '../../services/productService'
 import Card, { CardBody } from '../../components/card'
 import Button from '../../components/button'
 import * as S from './styled'
 
-const Cart = ({ products, total, navigation, cartEmpty }) => {
+const Cart = ({
+  products,
+  total,
+  navigation,
+  cartEmpty,
+  addProduct,
+  removeProduct,
+}) => {
   const handleFinshCart = async () => {
     try {
       const { data } = await productService.createOrder(products, total)
@@ -36,7 +44,15 @@ const Cart = ({ products, total, navigation, cartEmpty }) => {
                 <S.ProductPrice>{`R$ ${VMasker.toMoney(
                   product.price,
                 )}`}</S.ProductPrice>
-                <S.ProductQuantity>{`Quantidade: ${product.quantity} `}</S.ProductQuantity>
+                <S.GroupButtons>
+                  <S.IconButton onPress={() => addProduct(product.id)}>
+                    <S.IconPlus />
+                  </S.IconButton>
+                  <S.ProductQuantity>{product.quantity}</S.ProductQuantity>
+                  <S.IconButton onPress={() => removeProduct(product.id)}>
+                    <S.IconMinus />
+                  </S.IconButton>
+                </S.GroupButtons>
               </S.ProductItemInfo>
             </S.ProductItem>
           ))
@@ -70,7 +86,7 @@ const Cart = ({ products, total, navigation, cartEmpty }) => {
 }
 
 Cart.propTypes = {
-  total: PropTypes.number,
+  total: PropTypes.string,
   products: PropTypes.arrayOf(PropTypes.object).isRequired,
   navigation: PropTypes.shape({
     navigate: PropTypes.func,
@@ -79,9 +95,13 @@ Cart.propTypes = {
 
 const mapStateTopProps = state => {
   return {
-    products: state.cart.products,
-    total: state.cart.total,
+    products: getCartProducts(state),
+    total: getTotal(state),
   }
 }
 
-export default connect(mapStateTopProps, { cartEmpty: clearCart })(Cart)
+export default connect(mapStateTopProps, {
+  cartEmpty: clearCart,
+  addProduct: addToCart,
+  removeProduct: removeFromCart,
+})(Cart)

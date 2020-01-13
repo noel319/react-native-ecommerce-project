@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import { connect } from 'react-redux'
 
-import { getProducts as getProductsAction } from '../../redux/docks/products'
+import {
+  getProducts as getProductsAction,
+  getVisibleProducts,
+} from '../../redux/docks/products'
 import TextField from '../../components/textField'
 import ListProducts from './components/listProducts'
 import OrderProducts from './components/orderProducts'
@@ -37,9 +40,9 @@ const Products = ({ getProducts, products }) => {
     listProducts(typeSort, value)
   }
 
-  useEffect(() => {
-    listProducts()
-  }, [listProducts])
+  // useEffect(() => {
+  //   listProducts()
+  // }, [listProducts])
 
   return (
     <S.Container>
@@ -60,14 +63,14 @@ const Products = ({ getProducts, products }) => {
           onClear={handleOrderClear}
         />
       </S.Header>
-      <ListProducts products={products.data} loading={products.loading} />
+      <ListProducts products={products} loading={false} />
     </S.Container>
   )
 }
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
+    products: getVisibleProducts(state.products),
   }
 }
 

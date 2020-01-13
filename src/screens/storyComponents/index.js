@@ -1,5 +1,4 @@
 import React from 'react'
-import { Text } from 'react-native'
 
 import { HeaderModal } from '../../components/headers'
 import StorybookUI from '../../../storybook'

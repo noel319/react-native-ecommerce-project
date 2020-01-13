@@ -4,7 +4,7 @@ import { products as _products } from '../fake-data'
 import { IDGenerator } from '../utils'
 
 const alphabetNameSort = (data = []) => {
-  if (!!data.length && !!data.name) {
+  if (!data.length && !data.name) {
     return data
   }
   data.sort(function(a, b) {
@@ -36,7 +36,7 @@ const productsSort = type => {
     case 'lowestPrice':
       return lowestPrice(_products)
     default:
-      return _products
+      return [..._products]
   }
 }
 
@@ -65,7 +65,6 @@ class ProductService {
 
   static async listOrder() {
     const orders = await AsyncStorage.getItem('userOrders')
-    console.log('listOrder: ', orders)
     let data = []
     if (orders) {
       data = JSON.parse(orders)

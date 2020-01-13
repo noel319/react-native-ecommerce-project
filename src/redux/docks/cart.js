@@ -1,56 +1,48 @@
-import { products as _products } from '../../fake-data/'
+import { combineReducers } from 'redux'
+
+import { Types as TypeProducts, getProduct } from './products'
 
 export const Types = {
   REQUEST: 'cart/REQUEST',
-  ADD: 'cart/ADD',
-  REMOVE: 'cart/REMOVE',
   EMPTY: 'cart/EMPTY',
+  CHECKOUT_REQUEST: 'cart/CHECKOUT_REQUEST',
+  CHECKOUT_SUCCESS: 'cart/CHECKOUT_SUCCESS',
+  CHECKOUT_FAILURE: 'cart/CHECKOUT_FAILURE',
 }
 
 const initialState = {
-  products: [],
-  total: 0,
+  quantityById: {},
 }
 
-export default (state = initialState, action) => {
+function quantityById(state = initialState.quantityById, action) {
+  const { productId } = action
+  console.log('CART REMOVE: ', action)
   switch (action.type) {
-    case Types.ADD:
-      const product = _products.find(item => item.id === action.payload.id)
-      const hasProduct = state.products.some(
-        item => item.id === action.payload.id,
-      )
-      if (hasProduct) {
-        product.quantity += 1
-        const total = Number(state.total) + Number(product.price)
-        return { ...state, products: [...state.products], total }
-      } else {
-        product.quantity = 1
-        const total = Number(state.total) + Number(product.price)
-        return { ...state, products: [...state.products, product], total }
+    case Types.CHECKOUT_SUCCESS:
+      return initialState.quantityById
+    case TypeProducts.ADD:
+      return {
+        ...state,
+        [productId]: (state[productId] || 0) + 1,
       }
-    case Types.REMOVE:
-      const removeItem = state.products.find(
-        item => product.id === action.payload.id,
-      )
-      const productsClear = _products.filter(
-        item => item.id !== action.payload.id,
-      )
-      const total =
-        Number(state.total) - Number(removeItem.price) * removeItem.quantity
-      return { ...state, products: productsClear, total }
-    case Types.EMPTY:
-      return { ...state, products: [], total: 0 }
+    case TypeProducts.REMOVE:
+      const qty = (state[productId] || 0) - 1
+      const copy = { ...state }
+      console.log('COPY REMOVE: ', copy[productId])
+      if (qty > 0) {
+        copy[productId] = qty
+      } else {
+        delete copy[productId]
+      }
+      return copy
     default:
       return state
   }
 }
 
-export const addToCart = (id = 1) => {
-  return {
-    type: Types.ADD,
-    payload: { id },
-  }
-}
+export default combineReducers({
+  quantityById,
+})
 
 export const clearCart = (id = 1) => {
   return {
@@ -58,9 +50,32 @@ export const clearCart = (id = 1) => {
   }
 }
 
-export const removeFromCart = id => {
-  return {
-    type: Types.REQUEST,
-    payload: { id },
-  }
+export function getQuantity(state, productId) {
+  return state.quantityById[productId] || 0
+}
+
+export function getAddedIds(state) {
+  return Object.keys(state.quantityById)
+}
+
+export function getCart(state) {
+  return state.cart
+}
+
+export function getTotal(state) {
+  return getAddedIds(state.cart)
+    .reduce(
+      (total, id) =>
+        total +
+        getProduct(state.products, id).price * getQuantity(state.cart, id),
+      0,
+    )
+    .toFixed(2)
+}
+
+export function getCartProducts(state) {
+  return getAddedIds(state.cart).map(id => ({
+    ...getProduct(state.products, id),
+    quantity: getQuantity(state.cart, id),
+  }))
 }
